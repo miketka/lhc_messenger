@@ -333,27 +333,30 @@ class OperatorsChatPageState extends State<OperatorsChatPage>
                 }
               },
               builder: (context, state) {
-                return Stack(children: <Widget>[
-                  Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: <Widget>[
-                        Flexible(
-                            child: Padding(
-                          padding: const EdgeInsets.only(left: 8.0, right: 8.0),
-                          child: msgsStreamBuilder,
-                        )),
-                        new Divider(
-                          height: 1.0,
-                        ),
-                        new Container(
-                          child: _buildComposer(),
-                          decoration: new BoxDecoration(
-                              color: Theme.of(context).cardColor),
-                        )
-                      ]),
-                  if (state is ChatOperatorsMessagesLoaded && state.isLoading)
-                    Center(child: loadingIndicator)
-                ]);
+                return SafeArea(
+                  bottom: true,
+                  child: Stack(children: <Widget>[
+                    Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: <Widget>[
+                          Flexible(
+                              child: Padding(
+                            padding: const EdgeInsets.only(left: 8.0, right: 8.0),
+                            child: msgsStreamBuilder,
+                          )),
+                          new Divider(
+                            height: 1.0,
+                          ),
+                          new Container(
+                            child: _buildComposer(),
+                            decoration: new BoxDecoration(
+                                color: Theme.of(context).cardColor),
+                          )
+                        ]),
+                    if (state is ChatOperatorsMessagesLoaded && state.isLoading)
+                      Center(child: loadingIndicator)
+                  ]),
+                );
               },
             )));
 
