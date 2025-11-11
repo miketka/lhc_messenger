@@ -375,36 +375,39 @@ class ChatPageState extends State<ChatPage>
             }
           },
           builder: (context, state) {
-            return Stack(
-                children: <Widget>[
-                  GestureDetector(
-                    behavior: HitTestBehavior.translucent, // Important for capturing taps
-                    onTap: () {
-                      // This will hide the keyboard when tapping anywhere on the screen
-                      FocusScope.of(context).unfocus();
-                    },
-                    child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: <Widget>[
-                          Flexible(
-                            child: Padding(
-                              padding: const EdgeInsets.only(left: 8.0, right: 8.0),
-                              child: msgsStreamBuilder,
+            return SafeArea(
+              bottom: true,
+              child: Stack(
+                  children: <Widget>[
+                    GestureDetector(
+                      behavior: HitTestBehavior.translucent, // Important for capturing taps
+                      onTap: () {
+                        // This will hide the keyboard when tapping anywhere on the screen
+                        FocusScope.of(context).unfocus();
+                      },
+                      child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: <Widget>[
+                            Flexible(
+                              child: Padding(
+                                padding: const EdgeInsets.only(left: 8.0, right: 8.0),
+                                child: msgsStreamBuilder,
+                              ),
                             ),
-                          ),
-                          const Divider(
-                            height: 1.0,
-                          ),
-                          Container(
-                            child: _buildComposer(),
-                            decoration: BoxDecoration(color: Theme.of(context).cardColor),
-                          )
-                        ]
+                            const Divider(
+                              height: 1.0,
+                            ),
+                            Container(
+                              child: _buildComposer(),
+                              decoration: BoxDecoration(color: Theme.of(context).cardColor),
+                            )
+                          ]
+                      ),
                     ),
-                  ),
-                  if (state is ChatMessagesLoaded && state.isLoading)
-                    Center(child: loadingIndicator),
-                ]
+                    if (state is ChatMessagesLoaded && state.isLoading)
+                      Center(child: loadingIndicator),
+                  ]
+              ),
             );
           },
         ),
